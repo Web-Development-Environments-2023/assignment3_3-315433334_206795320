@@ -129,7 +129,7 @@ import {
   sameAs,
   email
 } from "vuelidate/lib/validators";
-
+// eslint-disable-next-line vue/multi-word-component-names
 export default {
   name: "Register",
   data() {
@@ -153,7 +153,7 @@ export default {
     form: {
       username: {
         required,
-        length: (u) => minLength(3)(u) && maxLength(8)(u),
+        length: u => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
       country: {
@@ -161,7 +161,7 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: p => minLength(5)(p) && maxLength(10)(p)
       },
       confirmedPassword: {
         required,

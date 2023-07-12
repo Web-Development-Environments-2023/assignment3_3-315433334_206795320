@@ -3,17 +3,36 @@
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+    <div class="card recipe-card">
+      <div class="image-container">
+        <img v-if="image_load" :src="recipe.image" class="card-img-top recipe-image" />
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
+      <div class="card-body recipe-details">
+        <h5 class="card-title recipe-title">{{ recipe.title }}</h5>
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">
+            <img src="@/images/time-icon.png" class="time-icon"/> {{ recipe.readyInMinutes }} minutes
+          </div>
+          <div class="list-group-item">
+            <img src="@/images/like.png" class="like"/> {{ recipe.aggregateLikes }} likes
+          </div>
+          <div class="list-group-item">
+            <i class="fas fa-seedling fa-beat fa-lg" title="Vegan" v-if="recipe.vegan"></i>
+            <i class="fas fa-leaf fa-beat fa-lg" title="Vegetarian" v-if="recipe.vegetarian"></i>
+            <i class="fas fa-wheat-awn-circle-exclamation fa-beat fa-lg" title="Gluten Free" style="color: #000000;"></i> 
+          </div>
+          <div class="list-group-item">
+            <button
+              class="favorite-button btn btn-sm"
+              :class="{ favorite: recipe.favorite }"
+              @click="toggleFavorite(recipe)"
+            >
+              <i class="fas fa-star"></i>
+            </button>
+            <i class="fas fa-eye" v-if="recipe.isWatched"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </router-link>
 </template>
@@ -27,115 +46,105 @@ export default {
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+      required: true,
+    },
+  },
+  methods: {
+    toggleFavorite(recipe) {
+      // Add your favorite toggling logic here
+    },
+  },
 };
 </script>
 
 <style scoped>
 .recipe-preview {
-  display: inline-block;
-  width: 90%;
+  /* Remove custom styles for background color and border */
+}
+
+.image-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.recipe-image {
+  width: 100%;
   height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
-  position: relative;
+  object-fit: cover;
 }
 
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
-  width: 98%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-}
-
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
+.recipe-details {
   text-align: center;
+}
+
+.recipe-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.details-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.favorite-button {
+  /* Add Bootstrap button classes */
+}
+
+.favorite {
+  color: gold;
+}
+
+.fa-eye {
+  margin-left: 8px;
+  color: green;
+}
+
+.fa-star {
+  font-size: 16px;
+}
+
+.fa-seedling,
+.fa-leaf,
+.fa-bread-slice {
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+
+.time-icon {
+  width: 23px;
+  height: 23px;
+  margin-right: 4px;
+}
+
+.like {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+.my-custom-class {
+  color: red;
+
 }
 </style>
