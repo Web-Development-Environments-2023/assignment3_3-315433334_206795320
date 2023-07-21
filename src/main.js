@@ -5,11 +5,16 @@ import axios from "axios";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
+import VueCookies from "vue-cookies";
+
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/css/all.css';
+import 'vue-material-design-icons/styles.css';
+
+
 import {
   FormGroupPlugin,
   FormPlugin,
@@ -21,9 +26,17 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  CarouselPlugin
+  CarouselPlugin,
 } from "bootstrap-vue";
+
+
+axios.defaults.withCredentials=true;
+
+
+
 Vue.use(VueRouter);
+Vue.use(VueCookies);
+
 const router = new VueRouter({
   routes
 });
@@ -41,6 +54,9 @@ const router = new VueRouter({
   CarouselPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
+
+// Vue.component("CreateRecipeModalEx", CreateRecipeModalEx)
+
 
 axios.interceptors.request.use(
   function(config) {
@@ -72,7 +88,8 @@ Vue.config.productionTip = false;
 const sharedData = {
   username: localStorage.username,
   // search_url_: localStorage.search_url_, // check this
-  server_domain: "http://localhost:3000",
+  server_domain: "http://127.0.0.1:3000",
+  // server_domain: "http://omer-sab.cs.bgu.ac.il",
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -84,7 +101,7 @@ const sharedData = {
     this.username = undefined;
   }
 };
-console.log(sharedData);
+// console.log(sharedData);
 /* eslint-enable camelcase */
 
 // Vue.prototype.$root.store = sharedData;
