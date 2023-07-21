@@ -2,27 +2,14 @@
   <div class="container">
     <h1 class="title"></h1>
     <div class="left-column">
-      <RecipePreviewList
-        title="Explore this recipes"
-        class="RandomRecipes center"
-        ref="recipePreviewList"
-        :get-recipes="getRandomRecipes"
-      />
+      <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" ref="recipePreviewList"/>
 
-      <i class="fa-regular fa-arrows-rotate fa-spin fa-xl" style="color: #000000;" @click="loadRandomRecipes"></i>
+      <!-- <i class="fa-regular fa-arrows-rotate fa-spin fa-xl" style="color: #000000;" @click="loadRandomRecipes"></i> -->
     </div>
     <div class="right-column">
-      <template v-if="$root.store.username">
-        
-        <RecipePreviewList
-          title="Last Viewed Recipes"
-          :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true
-          }"
-          :recipes="lastViewedRecipes"
-        ></RecipePreviewList>
+      <template v-if="this.$root.store.username">
+
+        <RecipePreviewList title="Last Watched Recipes" class="RandomRecipes center" ref="recipePreviewList"/>
         
       </template>
       <template v-else>
@@ -31,12 +18,8 @@
           <form @submit.prevent="onLogin">
             <div class="form-group">
               <label for="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                v-model="$v.form.username.$model"
-                :class="{'is-invalid': validateState('username') === false}"
-              />
+              <input type="text" id="username" v-model="$v.form.username.$model"
+                :class="{ 'is-invalid': validateState('username') === false }" />
               <div class="invalid-feedback">
                 Username is required
               </div>
@@ -44,12 +27,8 @@
 
             <div class="form-group">
               <label for="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                v-model="$v.form.password.$model"
-                :class="{'is-invalid': validateState('password') === false}"
-              />
+              <input type="password" id="password" v-model="$v.form.password.$model"
+                :class="{ 'is-invalid': validateState('password') === false }" />
               <div class="invalid-feedback">
                 Password is required
               </div>
@@ -63,13 +42,7 @@
             </div>
           </form>
 
-          <b-alert
-            class="mt-2"
-            v-if="form.submitError"
-            variant="warning"
-            dismissible
-            show
-          >
+          <b-alert class="mt-2" v-if="form.submitError" variant="warning" dismissible show>
             Login failed: {{ form.submitError }}
           </b-alert>
         </div>
@@ -81,6 +54,7 @@
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
 import { required } from "vuelidate/lib/validators";
+import axios from 'axios';
 
 export default {
   components: {
@@ -88,7 +62,8 @@ export default {
   },
   data() {
     return {
-      lastViewedRecipes: [],
+      // recipesFetched: false,
+      // lastViewedRecipes: [],
       form: {
         username: "",
         password: "",
@@ -114,31 +89,29 @@ export default {
     async loadRandomRecipes() {
       await this.$refs.recipePreviewList.updateRecipes();
     },
-    async getRandomRecipes() {
-      try {
-        const response = await this.axios.get(this.$root.store.server_domain + "/recipes/random");
-        return response.data;
-      } catch (error) {
-        console.log(error);
-        return [];
-      }
-    },
     async login() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
           this.$root.store.server_domain + "/login",
           {
-            user_name: this.form.username,
+            username: this.form.username,
             password: this.form.password,
           }
         );
+
+        this.axios.defaults.withCredentials = false;
+
         this.$root.store.login(this.form.username);
         if (this.$route.path !== "/") {
           this.$router.push("/");
         }
+        // await this.fetchLastViewedRecipes();
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
+
+        this.axios.defaults.withCredentials = false;
       }
     },
     onLogin() {
@@ -149,6 +122,7 @@ export default {
       }
       this.login();
     },
+
   },
 };
 </script>

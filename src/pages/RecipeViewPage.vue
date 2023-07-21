@@ -16,9 +16,10 @@
             <ul>
               <li
                 v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
+                :key="index + '_' + r.ingredient_name"
+              
               >
-                {{ r.original }}
+                  {{ r.ingredient_name }} : {{ r.amount }} {{r.units}}
               </li>
             </ul>
           </div>
@@ -51,49 +52,74 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/fullInfo/" + this.$route.params.recipeId, 
-        );
 
-        // console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/NotFound");
+          this.$root.store.server_domain + "/recipes/preview/" + this.$route.params.recipeId,
+          {
+            params: { recipe_id: this.$route.params.recipeId }
+          }
+        );
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-
       const {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
+        title,
         image,
-        title
-      } = response.data.recipe;
-
-      const _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
-
+        readyInMinutes,
+        aggregateLikes,
+        vegan,
+        vegetarian,
+        glutenFree,
+        watch,
+        favorite,
+        servings,
+        instructions,
+        extendedIngredients
+      } = response.data;
       const _recipe = {
-        instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
+        title,
         image,
-        title
+        readyInMinutes,
+        aggregateLikes,
+        vegan,
+        vegetarian,
+        glutenFree,
+        watch,
+        favorite,
+        servings,
+        instructions,
+        extendedIngredients
       };
+      // const {
+      //   analyzedInstructions,
+      //   instructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // } = response.data.recipe;
+
+      // const _instructions = analyzedInstructions
+      //   .map((fstep) => {
+      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+      //     return fstep.steps;
+      //   })
+      //   .reduce((a, b) => [...a, ...b], []);
+
+      // const _recipe = {
+      //   instructions,
+      //   _instructions,
+      //   analyzedInstructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // };
 
       this.recipe = _recipe;
     } catch (error) {
@@ -116,7 +142,4 @@ export default {
   margin-right: auto;
   width: 50%;
 }
-/* .recipe-header{
-
-} */
 </style>

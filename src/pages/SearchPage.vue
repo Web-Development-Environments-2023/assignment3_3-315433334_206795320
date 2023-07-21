@@ -20,9 +20,6 @@
     </div>
     <div class="list-group-item">
       <div class="form-group">
-        <!-- <label for="diet">
-          <i class="fas fa-seedling fa-beat fa-lg"></i>
-        </label> -->
         <label for="diet">Filter By diet:</label>
         <select id="diet" v-model="selectedDiet">
         <option value="">No Filter</option>
@@ -44,8 +41,19 @@
         <option v-for="intolerance in intolerances" :key="intolerance" :value="intolerance">{{ intolerance }}</option>
         </select>
       </div>
-  </div> 
-    <RecipePreviewList title="Search Results" :searchResults="searchResults" />
+    </div>
+    <div> 
+        <b-button type="reset" @click="reset">Reset</b-button>
+      </div>
+      <div>
+        <b-dropdown id="dropdown-1" text="Sort" class="m-md-2" variant="warning" >
+          <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
+          <b-dropdown-item @click="sortPreparationTime">Time</b-dropdown-item>
+        </b-dropdown>
+      </div>
+  <div id="res"> 
+    <searchResultList :recipes="this.$root.store.array_search"></searchResultList>
+  </div>
   </div>
 </template>
 
@@ -54,13 +62,13 @@
 import diets from "@/assets/diets.js";
 import cuisines from "@/assets/cuisines.js";
 import intolerances from "@/assets/intolerances.js";
-import RecipePreviewList from "../components/RecipePreviewList";
+import searchResultList from "../components/searchResultList";
 
 export default {
-  components: {
-    RecipePreviewList,
-  },
   name: "SearchPage",
+  components: {
+    searchResultList
+  },
   data() {
     return {
       selectedCuisine: "",
@@ -71,7 +79,7 @@ export default {
       intolerances: intolerances,
       searchQuery: "",
       number: 5,
-      searchResults: []
+      response: []
     };
   },
   methods: {
@@ -83,7 +91,7 @@ export default {
               this.selectedDiet +
               this.selectedIntolerance
           );
-        const response = await this.axios.get(
+        this.response = await this.axios.get(
           this.$root.store.server_domain + "/recipes/search/" + this.searchQuery,
           {
             params: {
@@ -95,31 +103,39 @@ export default {
           }
         }
       );
-      if (response.status != 200) {
-        this.$router.replace("/NotFound");
-      }
-      console.log(response);
-      this.searchResults = response.data;
-      this.$root.store.searchResults = response.data;
-      console.log(this.searchResults);
+      // if (response.status != 200) {
+      //   this.$router.replace("/NotFound");
+      // }
+      if (this.response.data.length == 0) {
+          alert("No recipes found.");
+          return;
+        }
+      console.log(this.response);
+      this.response = this.response.data;
+      this.$root.store.array_search = this.response;
       } catch (error) {
-        this.resetSearch();
+        this.reset();
         console.log(error);
         this.$router.replace("/NotFound");
       }
-    this.resetSearch();
+      this.reset();
     },
     toggleDropdown(index) {
       this.filters[index].isOpen = !this.filters[index].isOpen;
     },
-    SortByPopularity() {
-
-}, 
-
-SortByPreparationTime() {
-
+    sortPopularity() {
+  this.response = this.$root.store.array_search.slice().sort((a, b) => {
+    return parseInt(a.popularity) - parseInt(b.popularity);
+  });
 },
-    resetSearch() {
+
+sortPreparationTime() {
+  this.response = this.$root.store.array_search.slice().sort((a, b) => {
+    return parseInt(a.readyInMinutes) - parseInt(b.readyInMinutes);
+  });
+},
+
+    reset() {
       this.searchQuery = "",
       this.number = 5,
       this.selectedCuisine = "",
@@ -127,11 +143,7 @@ SortByPreparationTime() {
       this.selectedIntolerance = ""
     }
   },
-  mounted() {
-    if (this.$root.store.searchResults !== null) {
-      this.searchResults = this.$root.store.searchResults;
-    }
-  },
+
 };
 /* eslint-disable */
 </script>

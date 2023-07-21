@@ -17,9 +17,10 @@
             <img src="@/images/like.png" class="like"/> {{ recipe.aggregateLikes }} likes
           </div>
           <div class="list-group-item">
-            <i class="fas fa-seedling fa-beat fa-lg" title="Vegan" v-if="recipe.vegan"></i>
+            <!-- <md-icon name="leaf" title="Vegetarian" v-if="recipe.vegetarian"/> -->
+            <!-- <i class="fas fa-seedling fa-beat fa-lg" title="Vegan" v-if="recipe.vegan"></i>
             <i class="fas fa-leaf fa-beat fa-lg" title="Vegetarian" v-if="recipe.vegetarian"></i>
-            <i class="fas fa-wheat-awn-circle-exclamation fa-beat fa-lg" title="Gluten Free" style="color: #000000;"></i> 
+            <i class="fas fa-wheat-awn-circle-exclamation fa-beat fa-lg" title="Gluten Free" style="color: #000000;"></i>  -->
           </div>
           <div class="list-group-item">
             <button
