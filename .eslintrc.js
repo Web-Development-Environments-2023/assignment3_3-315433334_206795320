@@ -12,12 +12,12 @@ module.exports = {
     "prettier"
   ],
   parserOptions: {
-    parser: "babel-eslint"
+    parser: "@babel/eslint-parser"
   },
-  extends: ["plugin:vue/essential"],
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-unused-vars": process.env.NODE_ENV === "production" ? "warn" : "off"
+    "no-unused-vars": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "vue/multi-word-component-names": "off" // Add this rule and set it to "off"
   }
 };

@@ -5,14 +5,17 @@ import axios from "axios";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
-Vue.use(VueRouter);
-const router = new VueRouter({
-  routes,
-});
+import VueCookies from "vue-cookies";
+
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+// import '@fortawesome/fontawesome-free/css/all.css';
+import 'vue-material-design-icons/styles.css';
+// import proxy from './proxy'; 
+
+
 import {
   FormGroupPlugin,
   FormPlugin,
@@ -24,7 +27,20 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  CarouselPlugin,
 } from "bootstrap-vue";
+
+
+// axios.defaults.withCredentials=true;
+
+
+Vue.use(VueRouter);
+Vue.use(VueCookies);
+// Vue.use(proxy);
+
+const router = new VueRouter({
+  routes
+});
 [
   FormGroupPlugin,
   FormPlugin,
@@ -36,8 +52,12 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  CarouselPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
+
+// Vue.component("CreateRecipeModalEx", CreateRecipeModalEx)
+
 
 axios.interceptors.request.use(
   function(config) {
@@ -45,7 +65,7 @@ axios.interceptors.request.use(
     return config;
   },
   function(error) {
-    // Do something with request error
+    // Do something with request errorrrr
     return Promise.reject(error);
   }
 );
@@ -65,9 +85,12 @@ axios.interceptors.response.use(
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
-
-const shared_data = {
+/* eslint-disable camelcase */
+const sharedData = {
   username: localStorage.username,
+  // search_url_: localStorage.search_url_, // check this
+  server_domain: "http://127.0.0.1:3000",
+  // server_domain: "http://omer-sab.cs.bgu.ac.il",
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -77,16 +100,18 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
-  },
+  }
 };
-console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
+// console.log(sharedData);
+/* eslint-enable camelcase */
+
+// Vue.prototype.$root.store = sharedData;
 
 new Vue({
   router,
   data() {
     return {
-      store: shared_data,
+      store: sharedData
     };
   },
   methods: {
@@ -94,12 +119,12 @@ new Vue({
       this.$bvToast.toast(`${content}`, {
         title: `${title}`,
         toaster: "b-toaster-top-center",
-        variant: variant,
+        variant,
         solid: true,
         appendToast: append,
-        autoHideDelay: 3000,
+        autoHideDelay: 3000
       });
-    },
+    }
   },
-  render: (h) => h(App),
+  render: (h) => h(App)
 }).$mount("#app");

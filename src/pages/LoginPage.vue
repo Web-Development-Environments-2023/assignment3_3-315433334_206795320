@@ -65,6 +65,8 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
@@ -93,7 +95,7 @@ export default {
     },
     async Login() {
       try {
-        
+        // this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
           this.$root.store.server_domain +"/Login",
@@ -105,6 +107,8 @@ export default {
             password: this.form.password
           }
         );
+
+        // this.axios.defaults.withCredentials = false;
         // console.log(response);
         // this.$root.loggedIn = true;
         console.log(this.$root.store.login);
@@ -113,8 +117,28 @@ export default {
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
+
+        this.axios.defaults.withCredentials = false;
       }
     },
+    // async Login() {
+    //   try {
+    //     const response = await axios.post(
+    //       this.$root.store.server_domain + "/Login",
+    //       {
+    //         username: this.form.username,
+    //         password: this.form.password
+    //       }
+    //     );
+    //     console.log(this.$root.store.login);
+    //     this.$root.store.login(this.form.username);
+    //     this.$router.push("/");
+    //   } catch (err) {
+    //     console.log(err.response);
+    //     this.form.submitError = err.response ? err.response.data.message : "Unknown error occurred";
+    //   }
+    // },
+
     onLogin() {
       // console.log("login method called");
       this.form.submitError = undefined;
