@@ -33,11 +33,6 @@
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -54,11 +49,8 @@ export default {
       let response;
       try {
         response = await this.axios.get(
-
-          this.$root.store.server_domain + "/recipes/preview/" + this.$route.params.recipeId,
-          {
-            params: { recipe_id: this.$route.params.recipeId }
-          }
+          this.$root.store.server_domain + "/users/" + `${this.$route.params.recipeId}`,
+          { withCredentials:true }
         );
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -73,11 +65,8 @@ export default {
         vegan,
         vegetarian,
         glutenFree,
-        watch,
-        favorite,
-        servings,
         instructions,
-        extendedIngredients
+        extendedIngredients,
       } = response.data;
       const _recipe = {
         title,
@@ -87,41 +76,12 @@ export default {
         vegan,
         vegetarian,
         glutenFree,
-        watch,
-        favorite,
-        servings,
         instructions,
-        extendedIngredients
+        extendedIngredients,
       };
-      // const {
-      //   analyzedInstructions,
-      //   instructions,
-      //   extendedIngredients,
-      //   aggregateLikes,
-      //   readyInMinutes,
-      //   image,
-      //   title
-      // } = response.data.recipe;
-
-      // const _instructions = analyzedInstructions
-      //   .map((fstep) => {
-      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-      //     return fstep.steps;
-      //   })
-      //   .reduce((a, b) => [...a, ...b], []);
-
-      // const _recipe = {
-      //   instructions,
-      //   _instructions,
-      //   analyzedInstructions,
-      //   extendedIngredients,
-      //   aggregateLikes,
-      //   readyInMinutes,
-      //   image,
-      //   title
-      // };
 
       this.recipe = _recipe;
+      console.log(this.recipe)
     } catch (error) {
       console.log(error);
     }

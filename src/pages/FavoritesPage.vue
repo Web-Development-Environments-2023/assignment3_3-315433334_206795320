@@ -1,11 +1,7 @@
 <template>
   <div class="container">
-    <RecipePreviewList 
-    title="Favorites Page"
-    :recipes="favoritesRecipes"
-    :isPreview="true"
-    :show_ing_and_serv="false"
-    />
+    <RecipePreviewList title="My Favorites Recipes" :recipes="favoritesRecipes" :addToFavorite="addToFavorite"
+      :isRecipeWatched="isRecipeWatched" :isPreview="true" :show_ing_and_serv="false" />
   </div>
 </template>
 
@@ -19,6 +15,11 @@ export default
     {
       RecipePreviewList: RecipePreviewList
     },
+    props: {
+      // isRecipeWatched: {
+      //   type: Function
+      // }
+    },
     data() {
       return {
         favoritesRecipes: []
@@ -28,12 +29,15 @@ export default
     {
       async getFavoritesRecipes() {
         try {
-          this.axios.defaults.withCredentials = true;
+          // this.axios.defaults.withCredentials = true;
           const response = await this.axios.get(
-            "http://localhost:3000/users/favorites"
+            this.$root.store.server_domain + "/users/getFavorites",
+            {
+              withCredentials: true
+            }
             // "https://foodisgood.cs.bgu.ac.il/users/getFavorites"
           );
-          this.axios.defaults.withCredentials = false;
+          // this.axios.defaults.withCredentials = false;
 
           console.log(response);
           this.favoritesRecipes = [];
@@ -42,16 +46,17 @@ export default
         catch (err) {
           console.log(err.response);
         }
-      }
+      },
     },
-    mounted() {
+    created() {
       this.getFavoritesRecipes();
+      // this.$root.$emit('isRecipeWatched', /* pass any necessary data */);
     }
   };
 </script>
 
 <style lang="scss" scoped>
-.container{
+.container {
   max-width: 520px;
 }
 </style>

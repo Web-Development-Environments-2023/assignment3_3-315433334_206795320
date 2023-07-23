@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 // import '@fortawesome/fontawesome-free/css/all.css';
 import 'vue-material-design-icons/styles.css';
+// import proxy from './proxy'; 
 
 
 import {
@@ -30,12 +31,12 @@ import {
 } from "bootstrap-vue";
 
 
-axios.defaults.withCredentials=true;
-
+// axios.defaults.withCredentials=true;
 
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);
+// Vue.use(proxy);
 
 const router = new VueRouter({
   routes

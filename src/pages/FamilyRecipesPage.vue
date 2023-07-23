@@ -206,90 +206,62 @@
 
         <div class="col-sm-4">
             <div class="card">
-                <b-card header="Tripolitan Mafrum - By Gita" class="text-center">
+                <b-card header="HOMEMADE MAC AND CHEESE" class="text-center">
                     <b-card-text>
-                        <div>
-                            <!-- <b-img class="img" src="../assets/Mafrum.jpg" /> -->
+                        <div class="image-container">
+                            <img src="..\src\images\otherRecipe\other1.jpg" class="img">
+                            <img src="..\src\images\otherRecipe\other2.jpg" class="img">
                         </div>
                         <div class="recipe-body">
                             <div class="wrapper">
                                 <br>
                                 <b-card border-variant="info" header="About the recipe" class="text-center">
                                     <b-card-text class="text-left">
-                                        This mafrum recipe will throw you back to the 1800's when there was a thriving
-                                        Jewish population in Libya that cooked amazing mafrum!
-                                        Traditionally served over couscous to sop up all the tomato juices and fat from the
-                                        meat, the flavor of the warm ras al hanout spices
-                                        are brought forward by the last squeeze of lemon that my grandmother squeezes over
-                                        his mafrum.
+                                        This incredibly creamy and cheesy homemade mac and cheese is great on its own or as a jumping off point for your own creation.
                                     </b-card-text>
                                 </b-card>
                                 <br>
                                 <b-card border-variant="secondary" header="Ingredients" header-border-variant="secondary"
                                     class="text-center">
                                     <b-card-text class="text-left">
-                                        <b>For the filling:</b>
                                         <ul>
-                                            <li>1.5 lb. ground beef chuck</li>
-                                            <li>1/4 cup bread crumbs (or matzo meal)</li>
-                                            <li>1/2 yellow onion, grated</li>
-                                            <li>1/2 teaspoon cinnamon</li>
-                                            <li>Pinch nutmeg</li>
-                                            <li>1 teaspoon salt</li>
-                                            <li>1/4 teaspoon black pepper</li>
-                                        </ul>
-                                        <b>For the mafrum:</b>
-                                        <ul>
-                                            <li>5 large potatoes (Yukon Gold)</li>
-                                            <li>1 cup flour or matzo meal</li>
-                                            <li>2 eggs, lightly beaten</li>
-                                            <li>Oil for frying</li>
-                                        </ul>
-                                        <b>For the sauce:</b>
-                                        <ul>
-                                            <li>2 tablespoons olive oil</li>
-                                            <li>2 carrots, sliced to 1/4 rounds</li>
-                                            <li>2 garlic cloves, sliced</li>
-                                            <li>2 tablespoons tomato paste</li>
-                                            <li>1 teaspoon paprika</li>
-                                            <li>2 cups boiling water</li>
-                                            <li>1/2 teaspoon salt</li>
+                                            <li>8 oz. macaroni</li>
+                                            <li>3 Tbsp butter</li>
+                                            <li>3 Tbsp all-purpose flour</li>
+                                            <li>1/2 tsp onion powder</li>
+                                            <li>2 cups whole milk</li>
+                                            <li>1/2 tsp hot sauce</li>
+                                            <li>8 oz. block sharp cheddar, shredded</li>
                                         </ul>
                                     </b-card-text>
                                 </b-card>
                                 <br>
-                                <b-card border-variant="secondary" header="Instructions" header-border-variant="secondary"
-                                    class="text-center">
+                                <b-card border-variant="secondary" header="Instructions" header-border-variant="secondary">
                                     <b-card-text class="text-left">
-                                        <ol>
-                                            <li>Mix the ingredients of the filling.</li>
-                                            <li>Peel the potatoes. Slice the potatoes lengthwise to about 1/2 slices. Each
-                                                slice you then slice again lengthwise, but leave the two slices intact, so
-                                                you can get a V shape if you gently open them. (The filling will go inside
-                                                the V). Keep the potato leftovers.</li>
-                                            <li>Divide the filling to the number potato slices you have and shape the meat
-                                                into large meatballs. Fill each potato slice with the filling to get a
-                                                triangular shape.</li>
-                                            <li>Put the flour in a medium size bowl and the eggs in another. Mix the eggs
-                                                with the salt. Deep each mafrum with flour and then with the eggs and put on
-                                                a tray.</li>
-                                            <li>Heat 1/4 oil in a nonstick frying pan over medium-high heat and fry the
-                                                mafrum on both sides. Fry in 2-3 batches. Transfer the mafrum back to the
-                                                tray.</li>
-                                            <li>In a large pan with a lid that can hold all the mafrum heat the olive oil
-                                                over medium heat. Add the carrots, garlic and potato leftovers and fry for a
-                                                couple of minutes. Add tomato paste and paprika and fry for a minute more.
-                                                Now add 2 cups of boiling water and mix to get a
-                                                smooth sauce. Add salt, and then arrange the mafrum in the sauce.</li>
-                                            <li>Bring to boil, lower the heat to minimum, cover and cook for 30 minutes.
-                                                Remove the lid and cook for 15 minutes longer. Serve the mafrum with its
-                                                sauce over couscous.</li>
+                                        <ol class="step-list">
+                                            <li>
+                                                Cook the macaroni according to the package directions (boil for 7-8 minutes, or until tender). Drain the macaroni in a colander.
+                                            </li>
+                                            <li>
+                                                Place the butter, flour, and onion powder in a medium pot. Whisk and heat over medium until the butter is melted and the mixture begins to bubble. Once bubbling, continue to whisk and cook for one minute.
+                                            </li>
+                                            <li>
+                                                After cooking the butter and flour roux, whisk in the milk. Continue to cook and whisk over medium heat until the milk begins to gently simmer, at which point it will thicken to the consistency of heavy cream or gravy.
+                                            </li>
+                                            <li>
+                                                Turn the burner off. Season the white sauce with the salt and hot sauce.
+                                            </li>
+                                            <li>
+                                                Begin to add the shredded cheddar, one handful at a time, whisking it in until completely melted before adding more. Continue until all of the cheese has been melted into the sauce. If the sauce becomes too cold to melt the cheese, place it back over low heat only briefly to continue melting the cheese. Overheating the sauce can cause it to break and become grainy.
+                                            </li>
+                                            <li>
+                                                Add the cooked and drained pasta to the pot with the cheese sauce and stir to combine. Serve the mac and cheese hot and enjoy!
+                                            </li>
                                         </ol>
                                     </b-card-text>
                                 </b-card>
                             </div>
                         </div>
-
                     </b-card-text>
                 </b-card>
             </div>
@@ -338,17 +310,19 @@ export default {
 .image-container {
     max-width: 100%;
     overflow: hidden;
+    height: 300px; /* Set a fixed height for the container */
 }
 
 .image-container img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain; /* Use 'contain' to fit the entire image inside the container */
     display: block;
 }
 
 .img {
-    width: 250px;
-    height: 300px;
+    max-width: 100%;
+    height: 100%;
     align-items: center;
     padding: 0;
     margin: auto;
@@ -356,4 +330,5 @@ export default {
     /* Ensure the image behaves as a block element */
     margin-bottom: 10px;
     /* Add a margin below each image for spacing */
-}</style>
+}
+</style>

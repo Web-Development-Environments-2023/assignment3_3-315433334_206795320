@@ -5,7 +5,9 @@
       <slot></slot>
     </h3>
     <b-row v-if="recipes.length">
+      <!-- <b-row v-if="recipes && recipes.length"> -->
       <b-col v-for="r in recipes" :key="`${title}-${r.id}`">
+        <!-- <RecipePreview class="recipePreview" :recipe="r" :addToFavorite="addToFavorite" :isRecipeWatched="isRecipeWatched" /> -->
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
@@ -29,63 +31,67 @@ export default {
       type: String,
       required: true
     },
-    searchResults: {
+    // searchResults: {
+    recipes: {
       type: Array,
       default: () => [],
     },
+    // addToFavorite: {
+    //   type: Function,
+    //   required: false,
+    // },
+    // isRecipeWatched: {
+    //   type: Function,
+    //   required: false,
+    // }
   },
   data() {
     return {
-      recipes: []
+      // recipes: []
     };
   },
   mounted() {
-    this.updateRecipes();
+    // this.updateRecipes();
   },
   methods: {
-    async updateRecipes() {
-      let addToURL = "";
-      switch (this.title) {
-        case "Explore this recipes":
-          addToURL = "/recipes/random";
-          break;
-        case "Last Watched Recipes":
-          if (this.$root.store.username) {
-            addToURL = "/users/lastWatchedRecipes";
-          }
-          break;
-        case "Search Results":
-          this.recipes = this.searchResults;
-          return;
+    // async updateRecipes() {
+    //   let addToURL = "";
+    //   switch (this.title) {
+    //     case "Explore this recipes":
+    //       addToURL = "/recipes/random";
+    //       break;
+    //     case "Last Watched Recipes":
+    //       if (this.$root.store.username) {
+    //         // console.log("im here4");
+    //         addToURL = "/users/lastWatchedRecipes";
+    //         // console.log("im here5");
 
-        default:
-          return;
-      }        
-      try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + addToURL
-        );
-        this.recipes = response.data;        
-        // if (this.title === "Explore") {
-        //   console.log("hii");
-        //   await this.randomRecipes();
-        // } else if (this.title === "Last Viewed Recipes") {
-        //   await this.lastViewedRecipes();
-        // } else if (this.title === "My Favorite Recipes") {
-        //   await this.favoriteRecipes();
-        // } else if (this.title === "My Recipes") {
-        //   await this.myRecipes();
-        // } else if (this.title === "My Family Recipes") {
-        //   await this.myFamilyRecipes();
-        // } else if (this.title === "Search Results") {
-        //   await this.searchRecipes();
-        // } else if (this.title === "Last Search") {
-        //   await this.LastSearch();
-        // }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //       }
+    //       break;
+    //     case "Search Results":
+    //       this.recipes = this.searchResults;
+    //       return;
+
+    //     default:
+    //       return;
+    //   }        
+    //   try {
+    //     // this.axios.defaults.withCredentials = true;
+    //     console.log("im here4");
+
+    //     const response = await this.axios.get(
+    //       this.$root.store.server_domain + addToURL
+    //     );
+    //     // this.axios.defaults.withCredentials = false;
+
+    //     this.recipes = response.data;        
+
+    //   } catch (error) {
+    //     console.log(error);
+    //     // this.axios.defaults.withCredentials = false;
+
+    //   }
+    // },
     // async randomRecipes() {
     //   try {
     //     const response = await this.axios.get(
@@ -101,76 +107,76 @@ export default {
     //   }
     // },
 
-//    async lastViewedRecipes() {
-//   try {
-//     var response = null;
-//     let returnedRecipes = [];
+    //    async lastViewedRecipes() {
+    //   try {
+    //     var response = null;
+    //     let returnedRecipes = [];
 
-//     console.log(
-//       this.$root.store.server_domain + "/users/lastWatchedRecipes"
-//     );
+    //     console.log(
+    //       this.$root.store.server_domain + "/users/lastWatchedRecipes"
+    //     );
 
-    
-//     response = await this.axios.get(
-//       this.$root.store.server_domain + "/users/lastWatchedRecipes"
-//       );
-    
 
-//     console.log(response);
+    //     response = await this.axios.get(
+    //       this.$root.store.server_domain + "/users/lastWatchedRecipes"
+    //       );
 
-//     if (response.data === []) {
-//       console.log("no_results");
-//     } else {
-//       returnedRecipes = response.data;
-//       this.recipes = [];
-//       this.recipes.push(...returnedRecipes);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-//  },
 
-// async searchRecipes() {
-//   console.log("in searchRecipes");
-//   try {
-//     // eslint-disable-next-line camelcase
-//     const returnedRecipes = await this.axios.get(
-//       this.$root.store.server_domain +
-//         "/recipes/search/" +
-//         this.query 
-//         // "&number=" +
-//         // this.number +
-//         // "&cuisine=" +
-//         // this.cuisine +
-//         // "&diet=" +
-//         // this.diet +
-//         // "&intolerances=" +
-//         // this.intolerances
-//     );
+    //     console.log(response);
 
-//     console.log(returnedRecipes.data);
+    //     if (response.data === []) {
+    //       console.log("no_results");
+    //     } else {
+    //       returnedRecipes = response.data;
+    //       this.recipes = [];
+    //       this.recipes.push(...returnedRecipes);
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //  },
 
-//     if (returnedRecipes.data === "There is no results!") {
-//       this.no_results = true;
-//     } else {
-//       this.recipes = [];
-//       this.recipes.push(...returnedRecipes.data);
+    // async searchRecipes() {
+    //   console.log("in searchRecipes");
+    //   try {
+    //     // eslint-disable-next-line camelcase
+    //     const returnedRecipes = await this.axios.get(
+    //       this.$root.store.server_domain +
+    //         "/recipes/search/" +
+    //         this.query 
+    //         // "&number=" +
+    //         // this.number +
+    //         // "&cuisine=" +
+    //         // this.cuisine +
+    //         // "&diet=" +
+    //         // this.diet +
+    //         // "&intolerances=" +
+    //         // this.intolerances
+    //     );
 
-//       if (this.sortby === "aggregateLikes") {
-//         this.recipes = this.recipes.sort(
-//           (a, b) => a.aggregateLikes - b.aggregateLikes
-//         );
-//       } else if (this.sortby === "readyInMinutes") {
-//         this.recipes = this.recipes.sort(
-//           (a, b) => a.readyInMinutes - b.readyInMinutes
-//         );
-//       }
-//     }
-//     this.$root.store.setLastSearch(this.recipes);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+    //     console.log(returnedRecipes.data);
+
+    //     if (returnedRecipes.data === "There is no results!") {
+    //       this.no_results = true;
+    //     } else {
+    //       this.recipes = [];
+    //       this.recipes.push(...returnedRecipes.data);
+
+    //       if (this.sortby === "aggregateLikes") {
+    //         this.recipes = this.recipes.sort(
+    //           (a, b) => a.aggregateLikes - b.aggregateLikes
+    //         );
+    //       } else if (this.sortby === "readyInMinutes") {
+    //         this.recipes = this.recipes.sort(
+    //           (a, b) => a.readyInMinutes - b.readyInMinutes
+    //         );
+    //       }
+    //     }
+    //     this.$root.store.setLastSearch(this.recipes);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
 
 
 

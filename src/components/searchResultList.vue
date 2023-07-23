@@ -3,7 +3,7 @@
       <br>
       <b-row v-for="(group, groupIndex) in getRecipeGroups()" :key="groupIndex">
         <b-col v-for="recipe in group" :key="recipe.id">
-          <RecipePreview class="recipePreview" :recipe="recipe" />
+          <!-- <RecipePreview class="recipePreview" :recipe="recipe" /> -->
         </b-col>
       </b-row>
       <br>
@@ -15,7 +15,7 @@
   export default {
     name: "searchResultList",
     components: {
-      RecipePreview
+      // RecipePreview
     },
     props: {
       recipes: {

@@ -20,13 +20,13 @@
         </p>
         <ul>
             <li>
-                <a href="link-to-exercise-1">Exercise 1</a>
+                <a href="https://web-development-environments-2023.github.io/315433334/">Exercise 1 - Omer</a>
             </li>
             <li>
-                <a href="link-to-exercise-2">Exercise 2</a>
+                <a href="https://web-development-environments-2023.github.io/206795320/">Exercise 1 - Assaf</a>
             </li>
             <li>
-                <a href="link-to-exercise-3">Exercise 3</a>
+                <a href="https://web-development-environments-2023.github.io/assignment2-206795320_315433334/">Exercise 2</a>
             </li>
         </ul>
     </div>

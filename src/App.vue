@@ -37,8 +37,12 @@
                 </b-dropdown>
                 <!-- <router-link :to="{ name: 'createARecipe' }" id="addRecipe_button"
                   class="btn btn-outline-light text-white">Create your own recipe</router-link> -->
-                <router-link :to="{ name: 'createARecipe' }" id="addRecipe_button"
-                  class="btn btn-outline-light text-white" @click="showCreateRecipeModal = !showCreateRecipeModal">
+
+                  <!-- <router-link :to="{ name: 'createARecipe' }" id="addRecipe_button"
+                  class="btn btn-outline-light text-white" @click="showCreateRecipeModal = !showCreateRecipeModal"> -->
+
+                  <router-link :to="{ name: 'createARecipe' }" id="addRecipe_button"
+                  class="btn btn-outline-light text-white" @click="openCreateRecipeModal">
                   Create your own recipe
                 </router-link>
               </template>
@@ -62,16 +66,13 @@
             <b-col cols="auto">
               <router-link :to="{ name: 'about' }" class="btn btn-outline-light text-white">About</router-link>
             </b-col>
-            <!--remove this after there is a personal area (move it there)-->
-            <!-- <b-col cols="auto">
-              <router-link :to="{ name: 'createARecipe' }" class="btn btn-outline-light text-white">create</router-link>
-            </b-col> -->
           </b-row>
         </b-container>
       </b-navbar>
     </div>
     <router-view />
-    <create-recipe-modal-ex v-if="showCreateRecipeModal" />
+    <!-- <create-recipe-modal :session="session" /> -->
+    <create-recipe-modal v-if="showCreateRecipeModal"/>
 
     <!-- <create-recipe-modal-ex v-if="showCreateRecipeModal"></create-recipe-modal-ex> -->
     <!-- <create-recipe-modal-ex v-if="showCreateRecipeModal" @close="hideCreateRecipeModal"></create-recipe-modal-ex> -->
@@ -80,21 +81,30 @@
 </template>
 
 <script>
-import CreateRecipeModalEx from './components/CreateRecipeModalEx.vue';
+// import CreateRecipeModalEx from './components/CreateRecipeModalEx.vue';
+import CreateRecipeModal from './components/CreateRecipeModal.vue';
+
 
 
 export default {
   name: "App",
   components: {
-    'create-recipe-modal-ex': CreateRecipeModalEx
+    'create-recipe-modal': CreateRecipeModal
   },
+  // props: {
+  //   session: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   data() {
     return {
       isScrollDown: false,
       logoHeight: "70px",
       showCreateRecipeModal: false
-    };
+    }
   },
+
   // watch: {
   //   $route(to) {
   //     this.showCreateRecipeModal = to.matched.some(record => record.meta.showCreateRecipeModal);
@@ -135,6 +145,9 @@ export default {
         this.$forceUpdate();
       });
     },
+    openCreateRecipeModal() {
+      this.$refs.createRecipeModal.showModal = true;
+    },
   }
 };
 </script>
@@ -146,6 +159,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #000000;
   min-height: 100vh;
+  min-height: 100vh;
+  background-image: url("images/white-flower-with-cooking-ingredients-table.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 .logo-img {
